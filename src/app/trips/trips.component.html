@@ -1,0 +1,58 @@
+<div style="text-align: center;">
+    <h2>Vacation Destinations</h2>
+    <button type="button" class="btn btn-success" (click)="open(content)">New Vacation Destination</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th style="width:15%">City</th>
+          <th style="width:15%">Country</th>
+          <th style="width:55%">Description</th>
+          <th style="width:15%">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trip of trips.data">
+          <td>{{trip.city}}</td>
+          <td>{{trip.country}}</td>
+          <td class="desc">{{trip.description}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="openUpdate(content,trip)">Update</button>
+            <button type="button" class="btn btn-danger" (click)="delete(trip)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <span>Source: <a href="https://travel.usnews.com/rankings/worlds-best-vacations/">https://travel.usnews.com/rankings/worlds-best-vacations/</a></span>
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Vacation Destination Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <form [formGroup]="tripsForm">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" formControlName="city" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Country</label>
+                <input type="text" formControlName="country" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input type="text" formControlName="description" class="form-control">
+              </div>
+            </form>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="storeTrip()" *ngIf="!editMode">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="updateTrip()" *ngIf="editMode">Update</button>
+      </div>
+    </ng-template>
+  </div>
